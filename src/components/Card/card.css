@@ -1,0 +1,13 @@
+.Card-Modal{
+    padding: var(--padding-primary);
+    margin-top:var(--margin-primary) ;
+    border-radius: var(--border-radius-primary);
+    
+    
+}
+
+.Card-Modal{
+    font-family: var(--font-family-primary);
+    font-weight: var(--font-whight-normal);
+}
+

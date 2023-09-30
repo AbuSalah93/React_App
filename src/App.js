@@ -1,16 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
-import Header from './header';
-import Main from './main';
 
-function App() {
+import React from 'react';
+import { BrowserRouter as Router , Routes , Route } from 'react-router-dom';
+
+import { Header,Footer,Main} from './components/index';
+import { Browse } from './components/Pages/index';
+
+
+
+const App = () => {
   return (
-    <div>
+    <>
 
          <Header />
-         <Main />
+         <Router>
+          <Routes>
+            <Route path='/' Component={Main}></Route>
+            <Route path='/Browse' Component={Browse}></Route>
+          </Routes>
+         </Router>
+         
+         <Footer />
    
-   </div>
+   </>
   );
 }
 
