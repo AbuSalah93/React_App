@@ -1,24 +1,43 @@
-import React from 'react';
+
 import data from '../../assets/data.json'
 import CardComp from '../Card/card';
 import "./Main.css";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
+
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useState } from 'react';
+import {  useEffect , useState } from 'react';
 
 const Main =  () =>{
 
-    let [items,setItems] = useState (data);
+    //let [items,setItems] = useState (data);
+    let [items, setMeals] = useState ([])
 
-    function handleSubmit(event){
+      async function getMealsData(){
+
+      let response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?f=b')
+      let data = await response.json();
+      setMeals(data.meals)
+
+    }
+
+    useEffect(function(){
+      
+      getMealsData()}
+      
+      ,[])
+
+        async function handleSubmit(event){
         event.preventDefault()
         let searchedValue = event.target.search.value;
 
-        let filteredItems= data.filter (function(item){return item.title.toLowerCase().includes(searchedValue.toLowerCase() )})
-        setItems (filteredItems);
+        let response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=' + searchedValue)
+        let data = await response.json();
+        
+
+        let filteredItems= data.meals.filter(function(item){return item.strMeal.toLowerCase().includes(searchedValue.toLowerCase() )})
+        setMeals (filteredItems);
     }
 
     return(
@@ -34,10 +53,11 @@ const Main =  () =>{
               name= "search"
               placeholder="Search"
               className=" mr-sm-2"
+              required
             />
           </Col>
           <Col xs="auto">
-            <Button type="submit">Submit</Button>
+            <Button type="submit">Search</Button>
           </Col>
         </Row>
       </Form>
@@ -46,14 +66,15 @@ const Main =  () =>{
 
 
         <div className='container'>
-      {items.map( function(item){
+       {items.length !==0 ? items.map(function(item){
         return( 
-            <CardComp image={item.image_url} title={item.title} description={item.description}/>
-  
+        <>
+            <CardComp image={item.strMealThumb} title={item.strMeal} description={item.strInstructions}/>
+          </>
         )
   }
-    )
-}
+    ) : <h3>No search results</h3>}
+
 </div>
 
         </>
