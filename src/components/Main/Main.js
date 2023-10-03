@@ -16,7 +16,7 @@ const Main =  () =>{
 
       async function getMealsData(){
 
-      let response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?f=b')
+      let response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?f=m')
       let data = await response.json();
       setMeals(data.meals)
 
@@ -66,10 +66,10 @@ const Main =  () =>{
 
 
         <div className='container'>
-       {items.length !==0 ? items.map(function(item){
+       {items.length !== 0 ? items.map(function(item){
         return( 
         <>
-            <CardComp image={item.strMealThumb} title={item.strMeal} description={item.strInstructions}/>
+            <CardComp image={item.strMealThumb} title={item.strMeal} description={item.strInstructions} showFavorites={true}/>
           </>
         )
   }

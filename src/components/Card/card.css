@@ -11,3 +11,8 @@
     font-weight: var(--font-whight-normal);
 }
 
+.Card Button {
+    margin-top: 10px;
+    margin-left: 20%;
+}
+
